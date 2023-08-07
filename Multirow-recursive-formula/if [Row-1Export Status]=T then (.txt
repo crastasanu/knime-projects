@@ -1,0 +1,46 @@
+if [Row-1:Export Status]="T" then (
+	if DateTimeDiff([Archive Date],[Row-1:Archive Date],"days")>2 then 
+		[Row-1:Event Counter]+1 else 
+		[Row-1:Event Counter] endif) 
+	elseif datetimediff([Archive Date],[Row-1:Archive Date],"Days")>2 then 
+		[Row-1:Event Counter]+1 else 
+		[Row-1:Event Counter] endif
+
+
+***put date lag col and date diff in the group loop together with the java snippet
+
+
+if (!c_grouping_vals.equals(row_minus_1_grouping_variable1)){
+    row_minus_1_used_field = 0.0;
+
+ 
+
+}
+
+ 
+
+// your code
+
+ 
+
+
+if(c_ExportStatus1==true){
+    if(c_ArchiveDatedifference>2){
+        out_outputfield=row_minus_1_used_field+1.0;
+    }else{
+        out_outputfield=row_minus_1_used_field;
+    }
+}else if(c_ArchiveDatedifference>2){
+    out_outputfield=row_minus_1_used_field+1.0;
+}else{
+    out_outputfield=row_minus_1_used_field;
+}
+out_currentgroup = c_grouping_vals;
+out_exportstatus = c_ExportStatus1;
+out_archivedatediff = c_ArchiveDatedifference;
+
+ 
+
+
+row_minus_1_used_field = out_outputfield;
+row_minus_1_grouping_variable1 = c_grouping_vals;
